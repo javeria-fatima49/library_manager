@@ -64,8 +64,12 @@ elif choice == "Search Book":
 elif choice == "View Library":
     st.subheader("📖 Your Library")
     if library:
-        for book in library:
-            st.write(f"**{book['title']}** by {book['author']} ({book['year']}) - {book['genre']} - {'Read' if book['read'] else 'Unread'}")
+        sorted_books = sorted(library, key=lambda x: x["title"].lower())
+        for book in sorted_books:
+            with st.expander(f"📖 {book['title']} by {book['author']}"):
+                st.write(f"**Year:** {book['year']}")
+                st.write(f"**Genre:** {book['genre']}")
+                st.write(f"**Status:** {'✅ Read' if book['read'] else '❌ Unread'}")
     else:
         st.info("📭 Your library is empty! Add some books first.")
 
